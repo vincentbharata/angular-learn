@@ -1,0 +1,50 @@
+.video {
+  padding: 40px 60px;
+ 
+}
+
+.video h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #333;
+  padding-left: 40px;
+}
+
+.video-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.video iframe {
+  width: 100%;
+  max-width: 768px;
+  height: 415px;
+  border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .video {
+    padding: 30px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .video {
+    padding: 20px;
+  }
+
+  .video iframe {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video iframe {
+    height: 220px;
+  }
+
+  .video h2 {
+    font-size: 20px;
+  }
+}
