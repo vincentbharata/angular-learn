@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Data Pengajuan Leasing</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Daftar Pengajuan Leasing</h2>
+
+    <table id="tabelPengajuan">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Umur</th>
+          <th>DP</th>
+          <th>Harga Motor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data akan dimasukkan ke sini -->
+      </tbody>
+    </table>
+
+    <h2>Filter Umur 21-55 Tahun</h2>
+
+    <table id="tabelFilterUmur">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Umur</th>
+          <th>DP</th>
+          <th>Harga Motor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data akan dimasukkan ke sini -->
+      </tbody>
+    </table>
+
+    <h2>Cicilan Bulanan</h2>
+
+    <table id="tabelCicilan">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Harga Motor</th>
+          <th>DP (30% Harga Motor)</th>
+          <th>Bunga (10%)</th>
+          <th>Cicilan Tahunan</th>
+          <th>Cicilan Bulanan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data akan dimasukkan ke sini -->
+      </tbody>
+    </table>
+
+    <script>
+      async function tampilkanData() {
+        try {
+          const res = await fetch(
+            "https://68598a7a138a18086dfec989.mockapi.io/dummy-fif/DummyDataUser"
+          );
+          console.log("res: ", res);
+          const data = await res.json();
+          console.log("Data: ", data);
+
+          const tbody = document.querySelector("#tabelPengajuan tbody");
+          tbody.innerHTML = ""; // kosongkan dulu
+
+          data.forEach((pengajuan, index) => {
+            const row = `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${pengajuan.name}</td>
+              <td>${pengajuan.age}</td>
+              <td>Rp ${parseInt(pengajuan.dp).toLocaleString()}</td>
+              <td>Rp ${parseInt(pengajuan.price).toLocaleString()}</td>
+            </tr>
+          `;
+            tbody.innerHTML += row;
+          });
+        } catch (err) {
+          console.error("Gagal mengambil data:", err);
+        }
+      }
+
+      async function filterUmur() {
+        try {
+          const res = await fetch(
+            "https://68598a7a138a18086dfec989.mockapi.io/dummy-fif/DummyDataUser"
+          );
+          console.log("res: ", res);
+          const data = await res.json();
+          console.log("Data: ", data);
+
+          const tbody = document.querySelector("#tabelFilterUmur tbody");
+          tbody.innerHTML = ""; // kosongkan dulu
+
+          const filtered = data.filter(
+            (pengajuan) => pengajuan.age >= 21 && pengajuan.age <= 55
+          );
+
+          filtered.forEach((pengajuan, index) => {
+            const row = `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${pengajuan.name}</td>
+          <td>${pengajuan.age}</td>
+          <td>Rp ${parseInt(pengajuan.dp).toLocaleString()}</td>
+          <td>Rp ${parseInt(pengajuan.price).toLocaleString()}</td>
+        </tr>
+      `;
+            tbody.innerHTML += row;
+          });
+        } catch (err) {
+          console.error("Gagal mengambil data:", err);
+        }
+      }
+
+      async function cicilan() {
+        try {
+          const res = await fetch(
+            "https://68598a7a138a18086dfec989.mockapi.io/dummy-fif/DummyDataUser"
+          );
+          console.log("res: ", res);
+          const data = await res.json();
+          console.log("Data: ", data);
+
+          const tbody = document.querySelector("#tabelCicilan tbody");
+          tbody.innerHTML = ""; // kosongkan dulu
+
+          const filtered = data.filter(
+            (pengajuan) => pengajuan.age >= 21 && pengajuan.age <= 55
+          );
+
+          filtered.forEach((pengajuan, index) => {
+            const price = parseInt(pengajuan.price);
+            const dp = Math.round(price * 0.3);
+            const sisa = Math.round(price - dp);
+            const bunga = Math.round(sisa * 0.10); 
+            const totalKredit = sisa + bunga;
+            const cicilanBulanan = Math.round(totalKredit / 12); 
+
+            const row = `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${pengajuan.name}</td>
+          <td>Rp ${price.toLocaleString()}</td>
+          <td>Rp ${dp.toLocaleString()}</td>
+          <td>Rp ${bunga.toLocaleString()}</td>
+          <td>Rp ${totalKredit.toLocaleString()}</td>
+          <td>Rp ${cicilanBulanan.toLocaleString()}</td>
+        </tr>
+      `;
+            tbody.innerHTML += row;
+          });
+        } catch (err) {
+          console.error("Gagal mengambil data:", err);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        tampilkanData();
+        filterUmur();
+        cicilan();
+      });
+    </script>
+  </body>

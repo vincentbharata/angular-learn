@@ -1,38 +1,54 @@
-const test = "test"
+const test = "test";
 console.log(test);
 
 const arr = [1, 2, 3, 4, 5];
-console.log(arr[2]*2);
+console.log(arr[2] * 2);
 
 let person = {
-    name: "John",
-    age: 30
-}
+  name: "John",
+  age: 30,
+};
 
 console.log(person.name);
 console.log(person.age);
 
 const dataUser = [
-    {
-        name: "Alice",
-        age: 25
-    },
-    {
-        name: "Bob",
-        age: 28
-    }
+  {
+    name: "Alice",
+    age: 25,
+  },
+  {
+    name: "Bob",
+    age: 28,
+  },
 ];
 console.log(dataUser[1].name);
 console.log(dataUser[0].age);
 console.log(dataUser[0].name + " is " + dataUser[0].age + " years old.");
 
 function greet(name) {
-    return "Hello, " + name + "!";
+  return "Hello, " + name + "!";
 }
 console.log(greet("Alice"));
 
-function add(a, b,c) {
-    return a + b + c;
+function add(a, b, c) {
+  return a + b + c;
 }
 console.log(add(5, 10));
 console.log(add(20, "30", 5));
+
+//--------------------------------------------------------
+const user = {
+  name: "Charlie",
+  age: 22,
+};
+
+const location = {
+  city: "New York",
+};
+
+ const {name} = user;
+const {city} = location;
+const result = {...{name}, ...{city}};
+console.log(result);
+//-----------------------------------
