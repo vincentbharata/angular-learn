@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simulasi Cicilan Motor</title>
+    <link rel="stylesheet" href="style2.css" />
+  </head>
+  <body>
+    <h2>Simulasi Cicilan Motor</h2>
+    <div class="calculator-container">
+      <label>Gaji per bulan (Rp):</label><br />
+      <input type="number" id="gaji" /><br />
+      <span id="gajiError" style="color: red"></span><br />
+
+      <label>Harga Motor (Rp):</label><br />
+      <input type="number" id="hargaMotor" disabled /><br /><br />
+
+      <label>Uang Muka (DP) (Rp):</label><br />
+      <input type="number" id="dp" disabled /><br /><br />
+
+      <label>Tenor (bulan):</label><br />
+      <select id="tenor" disabled>
+        <option value="12">12 bulan (Bunga 5%)</option>
+        <option value="24">24 bulan (Bunga 8%)</option>
+        <option value="36">36 bulan (Bunga 10%)</option>
+        <option value="48">48 bulan (Bunga 12%)</option></select
+      ><br /><br />
+
+      <button onclick="hitungCicilan()" id="btnHitung" disabled>
+        Hitung Cicilan
+      </button>
+
+      <h3>Hasil:</h3>
+      <div id="hasil"></div>
+    </div>
+
+    <script>
+      //validasi gaji
+      document.getElementById("gaji").addEventListener("input", function () {
+        const gaji = parseFloat(this.value);
+        const gajiError = document.getElementById("gajiError");
+        const hargaMotor = document.getElementById("hargaMotor");
+        const dp = document.getElementById("dp");
+        const tenor = document.getElementById("tenor");
+        const btnHitung = document.getElementById("btnHitung");
+
+        if (isNaN(gaji) || gaji < 3000000) {
+          gajiError.textContent = "Gaji minimal harus Rp 3.000.000";
+          hargaMotor.disabled = true;
+          dp.disabled = true;
+          tenor.disabled = true;
+          btnHitung.disabled = true;
+        } else {
+          gajiError.textContent = "";
+          hargaMotor.disabled = false;
+          dp.disabled = false;
+          tenor.disabled = false;
+          btnHitung.disabled = false;
+        }
+      });
+
+      function hitungCicilan() {
+        const gaji = parseFloat(document.getElementById("gaji").value);
+        const harga = parseFloat(document.getElementById("hargaMotor").value);
+        const dp = parseFloat(document.getElementById("dp").value);
+        const tenor = parseInt(document.getElementById("tenor").value);
+        const hasilDiv = document.getElementById("hasil");
+
+        // Validasi gaji
+        if (isNaN(gaji) || gaji < 3000000) {
+          hasilDiv.innerHTML =
+            "<span style='color:red;'>Gaji minimal harus Rp 3.000.000</span>";
+          return;
+        }
+
+        // Validasi input
+        if (isNaN(harga) || isNaN(dp)) {
+          hasilDiv.innerHTML =
+            "<span style='color:red;'>Harga dan DP harus diisi dengan angka.</span>";
+          return;
+        }
+
+        // Validasi DP > Harga Motor
+        if (dp > harga) {
+          hasilDiv.innerHTML =
+            "<span style='color:red;'>Uang Muka (DP) tidak boleh lebih besar dari Harga Motor.</span>";
+          return;
+        }
+
+        // buat kondisi ketika dp kurang dari 30%
+        if (dp < harga * 0.3) {
+          hasilDiv.innerHTML =
+            "<span style='color:red;'>Uang Muka (DP) harus minimal 30% dari Harga Motor.</span>";
+          return;
+        }
+
+        // bunga fix
+        let bungaPerTahun;
+        switch (tenor) {
+          case 12:
+            bungaPerTahun = 5;
+            break;
+          case 24:
+            bungaPerTahun = 8;
+            break;
+          case 36:
+            bungaPerTahun = 10;
+            break;
+          case 48:
+            bungaPerTahun = 12;
+            break;
+          default:
+            bungaPerTahun = 5;
+        }
+
+        // buat perhitungan bunga
+        const pinjaman = harga - dp;
+        const bunga = bungaPerTahun / 100 / 12;
+
+        // Perhitungan
+        const totalPembayaran = pinjaman * (1 + bunga * tenor);
+        const cicilanBulanan = totalPembayaran / tenor;
+
+        hasilDiv.innerHTML = `
+        <p>Gaji per bulan: Rp ${gaji.toLocaleString()}</p>
+        <p>Harga Motor: Rp ${harga.toLocaleString()}</p>
+        <p>DP: Rp ${dp.toLocaleString()}</p>
+        <p>Pinjaman: Rp ${pinjaman.toLocaleString()}</p>
+        <p>Tenor: ${tenor} bulan</p>
+        <p>Bunga: ${bungaPerTahun}% per tahun</p>
+        <p>Total Pembayaran: Rp ${totalPembayaran.toLocaleString()}</p>
+        <p><strong>Cicilan per bulan: Rp ${cicilanBulanan.toLocaleString(
+          undefined,
+          { maximumFractionDigits: 0 }
+        )}</strong></p>
+      `;
+      }
+    </script>
+  </body>
+</html>
