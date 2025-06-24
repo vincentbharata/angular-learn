@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulasi Cicilan Motor</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <h2>Simulasi Cicilan Motor</h2>
+ <div class="calculator-container">
+    <label>Harga Motor (Rp):</label><br>
+    <input type="number" id="hargaMotor" /><br><br>
+
+    <label>Uang Muka (DP) (Rp):</label><br>
+    <input type="number" id="dp" /><br><br>
+
+    <label>Tenor (bulan):</label><br>
+    <select id="tenor">
+      <option value="12">12 bulan</option>
+      <option value="24">24 bulan</option>
+      <option value="36">36 bulan</option>
+      <option value="48">48 bulan</option>
+    </select><br><br>
+
+    <label>Bunga per Tahun (%):</label><br>
+    <input type="number" id="bunga" placeholder="Contoh: 8" /><br><br>
+
+    <button onclick="hitungCicilan()">Hitung Cicilan</button>
+
+    <h3>Hasil:</h3>
+    <div id="hasil"></div>
+  </div>
+
+  <script>
+    function hitungCicilan() {
+      const harga = parseFloat(document.getElementById("hargaMotor").value);
+      const dp = parseFloat(document.getElementById("dp").value);
+      const tenor = parseInt(document.getElementById("tenor").value);
+      const bungaInput = parseFloat(document.getElementById("bunga").value);
+      const hasilDiv = document.getElementById("hasil");
+
+      // Validasi input
+      if (isNaN(harga) || isNaN(dp) || isNaN(bungaInput)) {
+        hasilDiv.innerHTML = "<span style='color:red;'>Harga, DP, dan Bunga harus diisi dengan angka.</span>";
+        return;
+      }
+      // buat kondisi ketika dp kurang dari 30%
+      if (dp < harga * 0.3) {
+        hasilDiv.innerHTML = "<span style='color:red;'>Uang Muka (DP) harus minimal 30% dari Harga Motor.</span>";
+        return;
+      }
+      // buat perjitungan bunga
+        const pinjaman = harga - dp;
+        const bunga = (bungaInput / 100) / 12;
+
+      // Perhitungan
+        const totalPembayaran = pinjaman * (1 + bunga * tenor);
+        const cicilanBulanan = totalPembayaran / tenor;
+
+      hasilDiv.innerHTML = `
+        <p>Harga Motor: Rp ${harga.toLocaleString()}</p>
+        <p>DP: Rp ${dp.toLocaleString()}</p>
+        <p>Pinjaman: Rp ${pinjaman.toLocaleString()}</p>
+        <p>Bunga: ${bungaInput}%</p>
+        <p>Total Pembayaran: Rp ${totalPembayaran.toLocaleString()}</p>
+        <p><strong>Cicilan per bulan: Rp ${cicilanBulanan.toLocaleString(undefined, { maximumFractionDigits: 0 })}</strong></p>
+      `;
+    }
+  </script>
+</body>
+</html>
