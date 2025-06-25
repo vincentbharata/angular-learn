@@ -129,8 +129,8 @@ export class AppComponent {
   //folder list
 
   krediturList: kreditur[] = [
-    { name: 'Vin', age: 30, job: 'Data Analyst' },
-    { name: 'Cent', age: 25, job: 'Data Scientist' },
+    { name: 'Vin', age: 23, job: 'Data Analyst' },
+    { name: 'Cent', age: 24, job: 'Data Scientist' },
   ];
 
   addKreditur(newKreditur: kreditur) {
