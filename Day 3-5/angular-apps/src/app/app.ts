@@ -126,9 +126,11 @@ export class AppComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
+  //folder list
+
   krediturList: kreditur[] = [
-    { name: 'John Doe', age: 30, job: 'Software Engineer' },
-    { name: 'Jane Smith', age: 25, job: 'Data Scientist' },
+    { name: 'Vin', age: 30, job: 'Data Analyst' },
+    { name: 'Cent', age: 25, job: 'Data Scientist' },
   ];
 
   addKreditur(newKreditur: kreditur) {
