@@ -1,0 +1,38 @@
+.card {
+  display: flex;
+  &-title {
+    display: flex;
+  }
+  &-description {
+    &-top {
+
+    }
+    &-bottom {
+
+    }
+  }
+}
+
+/* Styling untuk list section */
+.list-section {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.list-section h2 {
+  color: #343a40;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+h2{
+  font-size: 24px;
+  color: #343a40;
+  margin-bottom: 28px;
+  text-align: center;
+  font-weight: bold;
+}
