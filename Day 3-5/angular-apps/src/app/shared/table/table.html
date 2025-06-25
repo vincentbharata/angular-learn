@@ -1,0 +1,20 @@
+<h1><br>Daftar Kreditur</h1>
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Nama</th>
+      <th>Umur</th>
+      <th>Pekerjaan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let kreditur of ChildrenData; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ kreditur.name }}</td>
+      <td>{{ kreditur.age ? kreditur.age : '-' }}</td>
+      <td>{{ kreditur.job ? kreditur.job : '-' }}</td>
+    </tr>
+  </tbody>
+  </table>
+<button (click)="SendToParrent()">TESTTT</button>
