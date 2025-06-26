@@ -34,10 +34,10 @@ export class ListForm {
   onSubmit() {
     if (this.form.valid) {
       this.add.emit({
-        name: this.form.value.name!,
+        nama: this.form.value.name!,
         age: Number(this.form.value.age!),
         job: this.form.value.job!,
-        creditScore: 0 // This will be overridden by the service
+        creditScore: 0 
       });
       this.form.reset();
     } else {

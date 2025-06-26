@@ -60,6 +60,9 @@
   <app-list-form (add)="onAddCreditur($event)"></app-list-form>
 
   <h2>Daftar Kreditur</h2>
+  <div *ngIf="crediturDataService.loading$ | async" class="loading-indicator">
+    <span>Memuat data...</span>
+  </div>
   <app-list-table
     [data]="parentData"
     (delete)="onDeleteCreditur($event)"

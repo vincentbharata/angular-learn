@@ -27,7 +27,7 @@ export class LoanForm {
   onSubmit(): void {
     if (this.loanForm.valid) {
       const selectedName = this.loanForm.value.name!;
-      const selectedCreditur = this.crediturList.find(c => c.name === selectedName);
+      const selectedCreditur = this.crediturList.find(c => c.nama === selectedName);
 
       if (selectedCreditur && selectedCreditur.creditScore < 60) {
         this.creditScoreError.emit({
