@@ -1,11 +1,10 @@
-/* Enhanced styling for form with validation */
 .form-container {
   background: linear-gradient(120deg, #fafdff 60%, #e3f0ff 100%);
   padding: 2.5rem 1.5rem 2rem 1.5rem;
   border-radius: 18px;
   box-shadow: 0 6px 32px rgba(0, 123, 255, 0.10), 0 2px 8px rgba(0,0,0,0.06);
   margin-bottom: 2.5rem;
-  max-width: 420px;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
   border: 1.5px solid #e3eafc;
@@ -242,6 +241,241 @@
   transform: translateY(-1px) scale(1.04);
 }
 
+/* Styling untuk loan form components */
+.form-container select {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #e3f0ff;
+  border-radius: 12px;
+  font-size: 15px;
+  background: #ffffff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 0;
+  box-sizing: border-box;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.form-container select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1), 0 4px 12px rgba(0, 123, 255, 0.15);
+  background: #fbfdff;
+  transform: translateY(-2px);
+}
+
+.loan-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e3f0ff;
+}
+
+.no-data {
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 2px dashed #cbd5e1;
+}
+
+/* Styling untuk submit button */
+.submit-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.submit-btn:hover::before {
+  left: 100%;
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.submit-btn:disabled {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(148, 163, 184, 0.2);
+}
+
+.submit-btn:disabled:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(148, 163, 184, 0.2);
+
+  &::before {
+    left: -100%;
+  }
+}
+
+/* Alternative button styles for different states */
+.submit-btn.processing {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.submit-btn.processing:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.submit-btn.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.submit-btn.success::after {
+  content: '✓';
+  margin-left: 0.5rem;
+}
+
+/* Enhanced form styling for loan form */
+.form-container h3 {
+  color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #10b981, #3b82f6);
+    border-radius: 2px;
+  }
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #374151;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Enhanced input and select styling */
+.form-control {
+  border: 2px solid #e5e7eb !important;
+  background: #fafafa !important;
+
+  &:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+    background: #ffffff !important;
+  }
+
+  &:hover:not(:focus) {
+    border-color: #d1d5db !important;
+    background: #ffffff !important;
+  }
+}
+
+/* Error styling */
+.error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  font-weight: 500;
+
+  &::before {
+    content: '⚠️';
+    margin-right: 0.5rem;
+  }
+}
+
+/* Form group enhancements */
+.form-group {
+  position: relative;
+
+  &:last-of-type {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Input focus effects */
+.form-control:focus + .floating-label,
+.form-control:not(:placeholder-shown) + .floating-label {
+  transform: translateY(-1.5rem) scale(0.85);
+  color: #10b981;
+}
+
+/* Currency formatting for amount input */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Add some animation to form elements */
+.form-group {
+  animation: slideInUp 0.3s ease-out;
+  animation-fill-mode: both;
+
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Responsive design */
 @media (max-width: 900px) {
   .table-container {
@@ -275,4 +509,73 @@
     min-width: 0;
     box-sizing: border-box;
   }
+  .submit-btn {
+    padding: 14px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Button variants */
+.btn-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+
+  &:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  }
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+
+  &:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+  }
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+
+  &:hover {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+  }
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+
+  &:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+  }
+}
+
+/* Button sizes */
+.btn-sm {
+  padding: 12px 24px;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: 20px 40px;
+  font-size: 1.125rem;
+}
+
+/* Icon styling in buttons */
+.submit-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.submit-btn:hover svg {
+  transform: translateY(-1px);
+}
+
+.submit-btn:disabled svg {
+  opacity: 0.6;
 }

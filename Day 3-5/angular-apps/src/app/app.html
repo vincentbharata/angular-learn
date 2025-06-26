@@ -50,15 +50,41 @@
 
    <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
     Please fill your email
-  </div> 
+  </div>
 </form>
 
 <img [src]="imgUrl" alt="random picture"> -->
 
 <div class="list-section">
-  <h2>Tambah List</h2>
-  <app-list-form (add)="addKreditur($event)"></app-list-form>
+  <h2>Tambah Kreditur</h2>
+  <app-list-form (add)="onAddCreditur($event)"></app-list-form>
 
-  <h2>Daftar List</h2>
-  <app-list-table [data]="krediturList" (delete)="deleteKreditur($event)"></app-list-table>
+  <h2>Daftar Kreditur</h2>
+  <div *ngIf="crediturDataService.loading$ | async" class="loading-indicator">
+    <span>Memuat data...</span>
+  </div>
+  <app-list-table
+    [data]="parentData"
+    (delete)="onDeleteCreditur($event)"
+  ></app-list-table>
+
+  <div class="loan-section">
+    <app-loan-form
+      [crediturList]="parentData"
+      (loanApplicationSubmit)="onLoanApplicationSubmit($event)"
+      (creditScoreError)="onCreditScoreError($event)">
+    </app-loan-form>
+
+    <app-loan-table
+      [loanApplications]="loanApplications"
+      (delete)="onDeleteLoanApplication($event)">
+    </app-loan-table>
+  </div>
 </div>
+
+<app-credit-score-popup
+  [isVisible]="showCreditScorePopup"
+  [currentScore]="currentCreditScore"
+  [requiredScore]="requiredCreditScore"
+  (close)="onClosePopup()">
+</app-credit-score-popup>

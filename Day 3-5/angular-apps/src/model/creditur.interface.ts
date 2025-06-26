@@ -1,5 +1,7 @@
 export interface kreditur {
-  name: string;
-  age?: number;
-  job?: string;
+  nama: string;
+  age: number;
+  job: string;
+  creditScore: number;
+  id?: string;
 }

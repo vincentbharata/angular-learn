@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit, AfterContentChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 import { Animal } from '../model/animate.interface';
-import { Table } from './shared/table/table';
 import { kreditur } from '../model/creditur.interface';
+import { LoanApplication } from '../model/loan-application.interface';
 import {
   FormControl,
   FormGroup,
@@ -13,23 +13,30 @@ import {
 } from '@angular/forms';
 import { ListForm } from './shared/list/list-form';
 import { ListTable } from './shared/list/list-table';
+import { LoanForm } from './shared/loan/loan-form';
+import { LoanTable } from './shared/loan/loan-table';
+import { CreditScorePopup } from './shared/popup/credit-score-popup';
+import { CrediturData } from './services/creditur-data';
+import { LoanService } from './services/loan-service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
     CommonModule,
-    Table,
     FormsModule,
     ReactiveFormsModule,
     ListForm,
     ListTable,
+    LoanForm,
+    LoanTable,
+    CreditScorePopup,
   ],
+  providers: [CrediturData, LoanService],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentChecked {
   title: string = 'fif-june-angular';
   testVariable: string = 'something';
   anotherVariabel: string = 'value pertama';
@@ -39,103 +46,113 @@ export class AppComponent {
   imgUrl: string = 'https://picsum.photos/200/300';
   name: string = '';
 
-  fruit: string[] = [];
-  animal: Array<Animal> = [];
-  animals: Animal[] = [
-    {
-      name: 'badak',
-      age: 10,
-    },
-    {
-      name: 'harimau',
-    },
-  ];
+  // kreditur data
+  parentData: kreditur[] = [];
 
-  parentData: kreditur[] = [
-    {
-      name: 'John Doe',
-      age: 30,
-      job: 'Software Engineer',
-    },
-    {
-      name: 'Jane Smith',
-      age: 25,
-      job: 'Data Scientist',
-    },
-    {
-      name: 'Alice Johnson',
-      age: 28,
-      job: 'Data Scientist',
-    },
-    {
-      name: 'Bob Brown',
-      age: 40,
-      job: 'Product Manager',
-    },
-    {
-      name: 'Charlie Black',
-      age: 35,
-      job: 'UX Designer',
-    },
-    {
-      name: 'Diana White',
-      age: 22,
-      job: 'Marketing Specialist',
-    },
-    {
-      name: 'Ethan Green',
-      age: 33,
-      job: 'DevOps Engineer',
-    },
-    {
-      name: 'Fiona Blue',
-      age: 29,
-      job: 'QA Engineer',
-    },
-    {
-      name: 'George Yellow',
-      age: 31,
-      job: 'System Administrator',
-    },
-    {
-      name: 'Hannah Purple',
-      age: 27,
-      job: 'Business Analyst',
-    },
-  ];
+  // loan application data
+  loanApplications: LoanApplication[] = [];
 
-  testFunction() {
-    const testVariable = 'test variable';
-    this.anotherVariabel = testVariable;
+  // popup state
+  showCreditScorePopup: boolean = false;
+  currentCreditScore: number = 0;
+  requiredCreditScore: number = 60;
+
+  private subscriptions = new Subscription();
+
+  constructor(
+    public crediturDataService: CrediturData,
+    private loanService: LoanService,
+    private cdRef: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.setupRealTimeDataUpdates();
+    this.loadLoanApplications();
+    this.crediturDataService.refreshData();
   }
 
-  anotherFunction() {
-    let testVariable = 'test variable';
-    testVariable = 'lalal';
-    this.testVariable = 'someeee';
-  }
-  receivedFromChild(event: string) {
-    this.testFromChild = event;
-  }
-  submit() {
-    console.log('dataa');
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.crediturDataService.refreshData();
+    }, 0);
   }
 
-  userForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-  });
-
-  krediturList: kreditur[] = [
-    { name: 'John Doe', age: 30, job: 'Software Engineer' },
-    { name: 'Jane Smith', age: 25, job: 'Data Scientist' },
-  ];
-
-  addKreditur(newKreditur: kreditur) {
-    this.krediturList = [...this.krediturList, newKreditur];
+  ngAfterContentChecked(): void {
+    try {
+      this.cdRef.markForCheck();
+    } catch (e) {
+      console.log('Ignored error in change detection', e);
+    }
   }
 
-  deleteKreditur(index: number) {
-    this.krediturList = this.krediturList.filter((_, i) => i !== index);
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
+
+  setupRealTimeDataUpdates(): void {
+    const dataSubscription = this.crediturDataService.crediturList$.subscribe(data => {
+      console.log('Received updated data from service:', data);
+      this.parentData = data;
+      this.cdRef.detectChanges();
+    });
+    this.subscriptions.add(dataSubscription);
+  }
+
+  loadCrediturData(): void {
+    this.crediturDataService.refreshData();
+    this.cdRef.detectChanges();
+  }
+
+  loadLoanApplications(): void {
+    this.loanApplications = this.loanService.getLoanApplications();
+  }
+
+  onAddCreditur(newCreditur: kreditur): void {
+    this.crediturDataService.addData(newCreditur).subscribe({
+      next: () => {
+        console.log('Data added successfully.');
+        this.crediturDataService.refreshData();
+        this.cdRef.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error adding credit data:', error);
+      }
+    });
+  }
+
+  onDeleteCreditur(index: number): void {
+    this.crediturDataService.deleteData(index).subscribe({
+      next: () => {
+        console.log('Data deleted successfully');
+
+        this.crediturDataService.refreshData();
+       
+        this.cdRef.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error deleting data:', error);
+      }
+    });
+  }
+
+  onLoanApplicationSubmit(loanApp: Omit<LoanApplication, 'no'>): void {
+    this.loanService.addLoanApplication(loanApp);
+    this.loadLoanApplications();
+  }
+
+  onDeleteLoanApplication(index: number): void {
+    this.loanService.deleteLoanApplication(index);
+    this.loadLoanApplications();
+  }
+
+  onCreditScoreError(errorData: {currentScore: number, requiredScore: number}): void {
+    this.currentCreditScore = errorData.currentScore;
+    this.requiredCreditScore = errorData.requiredScore;
+    this.showCreditScorePopup = true;
+  }
+
+  onClosePopup(): void {
+    this.showCreditScorePopup = false;
+  }
+
 }
