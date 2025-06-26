@@ -6,6 +6,7 @@
         <th>Nama</th>
         <th>Umur</th>
         <th>Pekerjaan</th>
+        <th>Kredit Skor</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -15,6 +16,7 @@
         <td>{{ item.name }}</td>
         <td>{{ item.age }}</td>
         <td>{{ item.job }}</td>
+        <td>{{ item.creditScore }}</td>
         <td><button (click)="onDelete(i)" class="delete-btn">Delete</button></td>
       </tr>
     </tbody>

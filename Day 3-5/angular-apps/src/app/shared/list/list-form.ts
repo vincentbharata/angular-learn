@@ -36,7 +36,8 @@ export class ListForm {
       this.add.emit({
         name: this.form.value.name!,
         age: Number(this.form.value.age!),
-        job: this.form.value.job!
+        job: this.form.value.job!,
+        creditScore: 0 // This will be overridden by the service
       });
       this.form.reset();
     } else {

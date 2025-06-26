@@ -1,11 +1,10 @@
-/* Enhanced styling for form with validation */
 .form-container {
   background: linear-gradient(120deg, #fafdff 60%, #e3f0ff 100%);
   padding: 2.5rem 1.5rem 2rem 1.5rem;
   border-radius: 18px;
   box-shadow: 0 6px 32px rgba(0, 123, 255, 0.10), 0 2px 8px rgba(0,0,0,0.06);
   margin-bottom: 2.5rem;
-  max-width: 420px;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
   border: 1.5px solid #e3eafc;
@@ -240,6 +239,45 @@
   background: linear-gradient(90deg, #b21f2d 60%, #ff4d4d 100%);
   box-shadow: 0 2px 8px rgba(220,53,69,0.13);
   transform: translateY(-1px) scale(1.04);
+}
+
+/* Styling untuk loan form components */
+.form-container select {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #e3f0ff;
+  border-radius: 12px;
+  font-size: 15px;
+  background: #ffffff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 0;
+  box-sizing: border-box;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.form-container select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1), 0 4px 12px rgba(0, 123, 255, 0.15);
+  background: #fbfdff;
+  transform: translateY(-2px);
+}
+
+.loan-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e3f0ff;
+}
+
+.no-data {
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 2px dashed #cbd5e1;
 }
 
 /* Responsive design */

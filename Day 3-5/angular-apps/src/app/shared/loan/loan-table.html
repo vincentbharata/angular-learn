@@ -1,0 +1,27 @@
+<div class="table-container">
+  <h3>Daftar Pengajuan Pinjaman</h3>
+  <table class="data-table" *ngIf="loanApplications.length > 0; else noLoanApps">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Jumlah Pengajuan</th>
+        <th>Tenor (Bulan)</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let loan of loanApplications; let i = index">
+        <td>{{ loan.no }}</td>
+        <td>{{ loan.name }}</td>
+        <td>{{ loan.amount | currency:'IDR':'symbol':'1.0-0' }}</td>
+        <td>{{ loan.tenor }}</td>
+        <td><button (click)="onDelete(i)" class="delete-btn">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noLoanApps>
+    <p class="no-data">Belum ada pengajuan pinjaman.</p>
+  </ng-template>
+</div>
