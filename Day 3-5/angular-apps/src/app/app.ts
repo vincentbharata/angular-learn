@@ -16,7 +16,7 @@ import { LoanForm } from './shared/loan/loan-form';
 import { LoanTable } from './shared/loan/loan-table';
 import { CreditScorePopup } from './shared/popup/credit-score-popup';
 import { CrediturData } from './services/creditur-data';
-import { LoanService } from './services/loan.service';
+import { LoanService } from './services/loan-service';
 
 @Component({
   selector: 'app-root',

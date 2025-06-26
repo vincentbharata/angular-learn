@@ -6,10 +6,10 @@ import { kreditur } from '../../model/creditur.interface';
 })
 export class CrediturData {
   private crediturList: kreditur[] = [
-    { name: 'John Doe', age: 30, job: 'Software Engineer', creditScore: this.generateRandomCreditScore() },
-    { name: 'Jane Smith', age: 25, job: 'Data Scientist', creditScore: this.generateRandomCreditScore() },
-    { name: 'Alice Johnson', age: 28, job: 'UX Designer', creditScore: this.generateRandomCreditScore() },
-    { name: 'Bob Brown', age: 35, job: 'Product Manager', creditScore: this.generateRandomCreditScore() }
+    { name: 'mul', age: 30, job: 'Software Engineer', creditScore: this.generateRandomCreditScore() },
+    { name: 'yono', age: 25, job: 'Data Scientist', creditScore: this.generateRandomCreditScore() },
+    { name: 'fufuria', age: 28, job: 'UX Designer', creditScore: this.generateRandomCreditScore() },
+    { name: 'mafafa', age: 35, job: 'Product Manager', creditScore: this.generateRandomCreditScore() }
   ];
 
   constructor() { }
