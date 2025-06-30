@@ -31,6 +31,9 @@
           </a>
         </li>
       </ul>
+      <div *ngIf="auth.isLoggedIn()" class="nav-logout">
+        <button class="btn btn-danger" (click)="logout()">Logout</button>
+      </div>
     </div>
   </nav>
 

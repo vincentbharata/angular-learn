@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap');
+
 .detail-kreditur-container {
   max-width: 600px;
   margin: 40px auto;
@@ -86,6 +88,19 @@
   color: white;
   background: rgba(0,123,255,0.25);
   box-shadow: 0 2px 8px rgba(31,38,135,0.10);
+}
+
+.credit-score.good {
+  background: linear-gradient(90deg, #22c55e 0%, #bbf7d0 100%);
+  color: #166534;
+}
+.credit-score.medium {
+  background: linear-gradient(90deg, #fde68a 0%, #fbbf24 100%);
+  color: #92400e;
+}
+.credit-score.poor {
+  background: linear-gradient(90deg, #fca5a5 0%, #ef4444 100%);
+  color: #991b1b;
 }
 
 .card-footer {

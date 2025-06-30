@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/platform-browser-dynamic": "^20.0.5",
+    "zone.js": "^0.15.1"
+  }
+}
