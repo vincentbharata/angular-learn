@@ -14,7 +14,27 @@ export class CrediturData {
   public loading$ = this.loadingSubject.asObservable();
 
   constructor(private api: Api) {
+    this.loadDataFromLocalStorage();
     this.loadDataFromApi();
+  }
+
+  private loadDataFromLocalStorage(): void {
+    const data = localStorage.getItem('crediturList');
+    if (data) {
+      try {
+        const parsed = JSON.parse(data);
+        if (Array.isArray(parsed)) {
+          this.crediturListSubject.next(parsed);
+        }
+      } catch (e) {
+        console.error('Failed to parse kreditur data from localStorage', e);
+      }
+    }
+  }
+
+  private saveDataToLocalStorage(): void {
+    const data = this.crediturListSubject.value;
+    localStorage.setItem('crediturList', JSON.stringify(data));
   }
 
   private loadDataFromApi(): void {
@@ -23,13 +43,19 @@ export class CrediturData {
 
     this.api.getData().subscribe({
       next: (data) => {
-        console.log('Data received from API:', data);
-        this.crediturListSubject.next(data);
+        if (Array.isArray(data) && data.length > 0) {
+          console.log('Data received from API:', data);
+          this.crediturListSubject.next(data);
+          this.saveDataToLocalStorage();
+        } else {
+          // Jika data dari API kosong, jangan timpa data localStorage
+          console.warn('API returned empty data, keeping localStorage data');
+        }
         this.loadingSubject.next(false);
       },
       error: (error) => {
         console.error('Error loading data from API:', error);
-        this.crediturListSubject.next([]);
+        // Jika error, tetap gunakan data localStorage
         this.loadingSubject.next(false);
       }
     });
@@ -53,10 +79,12 @@ export class CrediturData {
     return this.api.addData(newCreditur).pipe(
       tap((addedCreditur) => {
         const currentList = this.crediturListSubject.value;
-        this.crediturListSubject.next([...currentList, addedCreditur]);
+        const updatedList = [...currentList, addedCreditur];
+        this.crediturListSubject.next(updatedList);
+        this.saveDataToLocalStorage();
         this.loadingSubject.next(false);
         console.log('Data added successfully:', addedCreditur);
-        console.log('Updated list:', [...currentList, addedCreditur]);
+        console.log('Updated list:', updatedList);
       })
     );
   }
@@ -74,12 +102,14 @@ export class CrediturData {
             console.log('Data deleted from API, updating local list');
             const updatedList = currentList.filter((_, i) => i !== index);
             this.crediturListSubject.next(updatedList);
+            this.saveDataToLocalStorage();
             this.loadingSubject.next(false);
           })
         );
       } else {
         const updatedList = currentList.filter((_, i) => i !== index);
         this.crediturListSubject.next(updatedList);
+        this.saveDataToLocalStorage();
         this.loadingSubject.next(false);
         return new Observable(observer => {
           observer.next({success: true});
@@ -104,6 +134,7 @@ export class CrediturData {
 
   refreshData(): void {
     console.log('Manual refresh requested');
+    // Saat refresh, coba load dari localStorage dulu, baru dari API
     this.loadDataFromApi();
   }
 }
