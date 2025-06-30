@@ -228,23 +228,6 @@
   &:hover {
     transform: translateY(-2px);
   }
-
-  &.btn-info {
-    background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
-    color: #0277bd;
-    box-shadow: var(--shadow-sm);
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    }
-  }
-
-  &.btn-sm {
-    padding: 0.5rem 1rem;
-    font-size: 0.75rem;
-  }
 }
 
 .submit-btn {
@@ -325,8 +308,8 @@
 }
 
 .detail-btn {
-  background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
-  color: #0277bd;
+  background: var(--accent-gradient);
+  color: var(--text-light);
   padding: 0.5rem 1rem;
   border: none;
   border-radius: var(--radius-pill);
@@ -344,7 +327,6 @@
   &:hover {
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
   }
 }
 

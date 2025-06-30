@@ -40,7 +40,11 @@ export class LoanForm {
       const loanApplication: Omit<LoanApplication, 'no'> = {
         name: selectedName,
         amount: this.loanForm.value.amount!,
-        tenor: this.loanForm.value.tenor!
+        tenor: this.loanForm.value.tenor!,
+        krediturName: selectedName,
+        loanAmount: this.loanForm.value.amount!,
+        loanTerm: this.loanForm.value.tenor!,
+        applicationDate: new Date(),
       };
 
       this.loanApplicationSubmit.emit(loanApplication);

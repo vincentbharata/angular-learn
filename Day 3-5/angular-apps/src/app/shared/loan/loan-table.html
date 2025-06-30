@@ -1,5 +1,4 @@
-<div class="table-container">
-  <h3>Daftar Pengajuan Pinjaman</h3>
+<div class="table-wrapper">
   <table class="data-table" *ngIf="loanApplications.length > 0; else noLoanApps">
     <thead>
       <tr>
@@ -13,10 +12,13 @@
     <tbody>
       <tr *ngFor="let loan of loanApplications; let i = index">
         <td>{{ loan.no }}</td>
-        <td>{{ loan.name }}</td>
+        <td><a [routerLink]="['/detail-pinjaman', i]" class="name-link">{{ loan.name }}</a></td>
         <td>{{ loan.amount | currency:'IDR':'symbol':'1.0-0' }}</td>
         <td>{{ loan.tenor }}</td>
-        <td><button (click)="onDelete(i)" class="delete-btn">Delete</button></td>
+        <td>
+          <a [routerLink]="['/detail-pinjaman', i]" class="btn btn-info btn-sm">Detail</a>
+          <button (click)="onDelete(i)" class="btn btn-danger btn-sm">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -35,8 +35,6 @@ export class CrediturData {
     });
   }
 
-  // Removed the auto-refresh method as requested
-
   private generateRandomCreditScore(): number {
     return Math.floor(Math.random() * 100) + 1;
   }
@@ -80,7 +78,6 @@ export class CrediturData {
           })
         );
       } else {
-        // Handle case where id is not available
         const updatedList = currentList.filter((_, i) => i !== index);
         this.crediturListSubject.next(updatedList);
         this.loadingSubject.next(false);
@@ -91,7 +88,6 @@ export class CrediturData {
       }
     }
 
-    // Return observable for invalid index
     return new Observable(observer => {
       observer.error(new Error('Invalid index for deletion'));
       observer.complete();

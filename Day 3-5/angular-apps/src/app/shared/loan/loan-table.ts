@@ -1,11 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { LoanApplication } from '../../../model/loan-application.interface';
 
 @Component({
   selector: 'app-loan-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './loan-table.html',
   styleUrl: '../list/list.scss'
 })

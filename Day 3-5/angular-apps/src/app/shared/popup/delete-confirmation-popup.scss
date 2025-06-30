@@ -1,0 +1,314 @@
+/* Delete Confirmation Popup with Glassmorphism Design */
+
+// Popup Overlay
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+  padding: 1rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Popup Container
+.popup-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Header
+.popup-header {
+  text-align: center;
+  padding: 2rem 2rem 1rem 2rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.warning-icon {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+
+  svg {
+    filter: drop-shadow(0 4px 8px rgba(245, 158, 11, 0.3));
+    animation: warning-pulse 2s infinite ease-in-out;
+  }
+}
+
+@keyframes warning-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.popup-title {
+  margin: 0;
+  color: #1f2937;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Content
+.popup-content {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.message-container {
+  text-align: center;
+}
+
+.warning-message {
+  margin: 0 0 0.75rem 0;
+  color: #374151;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  strong {
+    color: #ef4444;
+    font-weight: 700;
+  }
+}
+
+.sub-message {
+  margin: 0;
+  color: #6b7280;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.delete-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 50%;
+
+  svg {
+    filter: drop-shadow(0 4px 8px rgba(239, 68, 68, 0.3));
+  }
+}
+
+// Footer
+.popup-footer {
+  padding: 1.5rem 2rem 2rem 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+// Button Styles
+.cancel-btn,
+.delete-btn {
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+}
+
+.cancel-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #6b7280;
+  border: 1px solid rgba(209, 213, 219, 0.6);
+
+  &:hover {
+    background: rgba(249, 250, 251, 0.95);
+    color: #374151;
+    border-color: rgba(156, 163, 175, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+    svg {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+
+  &:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+
+    svg {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 640px) {
+  .popup-container {
+    margin: 1rem;
+    width: calc(100% - 2rem);
+    max-width: none;
+  }
+
+  .popup-header,
+  .popup-content,
+  .popup-footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .popup-title {
+    font-size: 1.25rem;
+  }
+
+  .warning-message {
+    font-size: 1rem;
+  }
+
+  .popup-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cancel-btn,
+  .delete-btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  .popup-container {
+    background: rgba(31, 41, 55, 0.95);
+    border-color: rgba(75, 85, 99, 0.4);
+  }
+
+  .popup-header {
+    background: rgba(31, 41, 55, 0.8);
+    border-bottom-color: rgba(75, 85, 99, 0.3);
+  }
+
+  .popup-title {
+    color: #f9fafb;
+  }
+
+  .warning-message {
+    color: #d1d5db;
+
+    strong {
+      color: #fca5a5;
+    }
+  }
+
+  .sub-message {
+    color: #9ca3af;
+  }
+
+  .icon-container {
+    background: rgba(31, 41, 55, 0.6);
+    border-color: rgba(75, 85, 99, 0.4);
+  }
+
+  .popup-footer {
+    background: rgba(31, 41, 55, 0.6);
+    border-top-color: rgba(75, 85, 99, 0.3);
+  }
+
+  .cancel-btn {
+    background: rgba(55, 65, 81, 0.9);
+    color: #d1d5db;
+    border-color: rgba(107, 114, 128, 0.6);
+
+    &:hover {
+      background: rgba(75, 85, 99, 0.95);
+      color: #f3f4f6;
+      border-color: rgba(156, 163, 175, 0.8);
+    }
+  }
+}

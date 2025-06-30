@@ -1,0 +1,24 @@
+<div class="pengajuan-pinjaman-container">
+  <div class="header">
+    <h1>Pengajuan Pinjaman</h1>
+    <div class="nav-links">
+      <a routerLink="/home" class="btn btn-secondary">Daftar Kreditur</a>
+      <a routerLink="/daftar-pinjaman" class="btn btn-info">Lihat Daftar Pinjaman</a>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <app-loan-form
+      [crediturList]="parentData"
+      (loanApplicationSubmit)="onLoanApplicationSubmit($event)"
+      (creditScoreError)="onCreditScoreError($event)">
+    </app-loan-form>
+  </div>
+</div>
+
+<app-credit-score-popup
+  [isVisible]="showCreditScorePopup"
+  [currentScore]="currentCreditScore"
+  [requiredScore]="requiredCreditScore"
+  (close)="onClosePopup()">
+</app-credit-score-popup>
