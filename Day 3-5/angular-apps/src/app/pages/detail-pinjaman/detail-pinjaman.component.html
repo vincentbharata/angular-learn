@@ -1,0 +1,69 @@
+<div class="detail-pinjaman-container">
+  <div class="header">
+    <h1>Detail Pengajuan Pinjaman</h1>
+    <button (click)="goBack()" class="btn btn-secondary">Kembali</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <p>Memuat data...</p>
+  </div>
+
+  <div *ngIf="notFound && !isLoading" class="not-found">
+    <h2>Pengajuan tidak ditemukan</h2>
+    <p>Pengajuan pinjaman yang Anda cari tidak ada atau telah dihapus.</p>
+    <button (click)="goBack()" class="btn btn-primary">Kembali ke Daftar</button>
+  </div>
+
+  <div *ngIf="loanApplication && !isLoading && !notFound" class="detail-card">
+    <div class="card-header">
+      <h2>Pengajuan #{{loanApplication.no}}</h2>
+      <div class="actions">
+        <button (click)="onDeleteLoan()" class="btn btn-danger">Hapus</button>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="info-row">
+        <label>Nomor Pengajuan:</label>
+        <span>{{loanApplication.no}}</span>
+      </div>
+
+      <div class="info-row">
+        <label>Nama Kreditur:</label>
+        <span>{{loanApplication.krediturName}}</span>
+      </div>
+
+      <div class="info-row">
+        <label>Jumlah Pinjaman:</label>
+        <span class="amount">Rp {{loanApplication.loanAmount | number:'1.0-0'}}</span>
+      </div>
+
+      <div class="info-row">
+        <label>Jangka Waktu:</label>
+        <span>{{loanApplication.loanTerm}} bulan</span>
+      </div>
+
+      <div class="info-row">
+        <label>Interest Rate:</label>
+        <span>{{loanApplication.interestRate}}%</span>
+      </div>
+
+      <div class="info-row">
+        <label>Tanggal Pengajuan:</label>
+        <span>{{loanApplication.applicationDate | date:'dd/MM/yyyy'}}</span>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <a routerLink="/pengajuan-pinjaman" class="btn btn-success">Buat Pengajuan Baru</a>
+    </div>
+  </div>
+</div>
+
+<app-delete-confirmation-popup
+  [isVisible]="showDeletePopup"
+  [itemName]="'pengajuan pinjaman'"
+  [itemType]="'pengajuan pinjaman'"
+  (confirm)="onConfirmDelete()"
+  (cancel)="onCancelDelete()">
+</app-delete-confirmation-popup>

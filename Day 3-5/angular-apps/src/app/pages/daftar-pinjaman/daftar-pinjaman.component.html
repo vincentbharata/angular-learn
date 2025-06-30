@@ -1,0 +1,25 @@
+<div class="daftar-pinjaman-container">
+  <div class="header">
+    <h1>Daftar Pinjaman</h1>
+    <div class="nav-links">
+      <a routerLink="/home" class="btn btn-secondary">Daftar Kreditur</a>
+      <a routerLink="/pengajuan-pinjaman" class="btn btn-primary">Ajukan Pinjaman Baru</a>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <app-loan-table
+      [loanApplications]="loanApplications"
+      (delete)="onDeleteLoanApplication($event)">
+    </app-loan-table>
+  </div>
+</div>
+
+<!-- Delete Confirmation Popup -->
+<app-delete-confirmation-popup
+  [isVisible]="showDeleteConfirmation"
+  [itemName]="itemToDelete?.name || ''"
+  itemType="Pinjaman"
+  (confirm)="onConfirmDelete()"
+  (cancel)="onCancelDelete()">
+</app-delete-confirmation-popup>

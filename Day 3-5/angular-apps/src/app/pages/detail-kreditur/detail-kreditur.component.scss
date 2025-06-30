@@ -1,0 +1,131 @@
+.detail-kreditur-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  color: #222;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.loading, .not-found {
+  text-align: center;
+  padding: 40px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.not-found h2 {
+  color: #dc3545;
+  margin-bottom: 15px;
+}
+
+.detail-card {
+  background: rgba(255,255,255,0.25);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(31,38,135,0.10);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  padding: 2.5rem 2rem 2rem 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.card-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 0;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 18px;
+  align-items: center;
+}
+
+.info-row label {
+  font-weight: 600;
+  color: #495057;
+  width: 150px;
+  margin-right: 15px;
+}
+
+.info-row span {
+  color: #212529;
+  font-size: 1.1rem;
+}
+
+.credit-score {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  color: white;
+  background: rgba(0,123,255,0.25);
+  box-shadow: 0 2px 8px rgba(31,38,135,0.10);
+}
+
+.card-footer {
+  background: transparent;
+  padding: 20px 0 0 0;
+  text-align: center;
+}
+
+.btn {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  display: inline-block;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 4px 24px 0 rgba(31,38,135,0.08);
+  color: #222;
+  backdrop-filter: blur(8px);
+}
+
+.btn-danger {
+  background: rgba(255,0,0,0.12);
+  color: #dc3545;
+}
+
+.btn-success {
+  background: rgba(40,167,69,0.12);
+  color: #28a745;
+}
+
+.btn-primary {
+  background: rgba(174,226,255,0.25);
+  color: #007bff;
+}
+
+.btn:hover {
+  background: rgba(255,255,255,0.35);
+  transform: translateY(-2px) scale(1.03);
+}

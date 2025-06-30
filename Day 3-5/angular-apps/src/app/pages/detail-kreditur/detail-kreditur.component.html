@@ -1,0 +1,68 @@
+<div class="detail-kreditur-container">
+  <div class="header">
+    <h1>Detail Kreditur</h1>
+    <button (click)="goBack()" class="btn btn-secondary">Kembali</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <p>Memuat data...</p>
+  </div>
+
+  <div *ngIf="notFound && !isLoading" class="not-found">
+    <h2>Kreditur tidak ditemukan</h2>
+    <p>Kreditur yang Anda cari tidak ada atau telah dihapus.</p>
+    <button (click)="goBack()" class="btn btn-primary">Kembali ke Daftar</button>
+  </div>
+
+  <div *ngIf="kreditur && !isLoading && !notFound" class="detail-card">
+    <div class="card-header">
+      <h2>{{kreditur.nama}}</h2>
+      <div class="actions">
+        <button (click)="onDeleteKreditur()" class="btn btn-danger">Hapus</button>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="info-row">
+        <label>Nama:</label>
+        <span>{{kreditur.nama}}</span>
+      </div>
+
+      <div class="info-row">
+        <label>Umur:</label>
+        <span>{{kreditur.age}} tahun</span>
+      </div>
+
+      <div class="info-row">
+        <label>Pekerjaan:</label>
+        <span>{{kreditur.job}}</span>
+      </div>
+
+      <div class="info-row">
+        <label>Credit Score:</label>
+        <span class="credit-score" [ngClass]="{
+          'good': kreditur.creditScore >= 70,
+          'medium': kreditur.creditScore >= 50 && kreditur.creditScore < 70,
+          'poor': kreditur.creditScore < 50
+        }">{{kreditur.creditScore}}</span>
+      </div>
+
+      <div class="info-row" *ngIf="kreditur.id">
+        <label>ID:</label>
+        <span>{{kreditur.id}}</span>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <a routerLink="/pengajuan-pinjaman" class="btn btn-success">Ajukan Pinjaman</a>
+    </div>
+  </div>
+</div>
+
+<app-delete-confirmation-popup
+  [isVisible]="showDeletePopup"
+  [itemName]="kreditur?.nama || ''"
+  [itemType]="'kreditur'"
+  (confirm)="onConfirmDelete()"
+  (cancel)="onCancelDelete()">
+</app-delete-confirmation-popup>
