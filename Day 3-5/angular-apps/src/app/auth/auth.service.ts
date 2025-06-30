@@ -13,15 +13,17 @@ export class AuthService {
 
   login(email: string, password: string): Observable<boolean> {
     const headers = new HttpHeaders({ 'x-api-key': this.apiKey });
-    return this.http.post<{ token: string }>(this.apiUrl, { email, password }, { headers }).pipe(
-      tap(res => {
-        if (res.token) {
-          localStorage.setItem(this.tokenKey, res.token);
-        }
-      }),
-      map(res => !!res.token),
-      catchError(() => of(false))
-    );
+    return this.http
+      .post<{ token: string }>(this.apiUrl, { email, password }, { headers })
+      .pipe(
+        tap((res) => {
+          if (res.token) {
+            localStorage.setItem(this.tokenKey, res.token);
+          }
+        }),
+        map((res) => !!res.token),
+        catchError(() => of(false))
+      );
   }
 
   logout(): void {
